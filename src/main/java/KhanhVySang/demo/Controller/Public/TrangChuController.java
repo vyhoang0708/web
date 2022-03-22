@@ -17,9 +17,11 @@ import KhanhVySang.demo.Model.Form.FormDangKy;
 import KhanhVySang.demo.Model.Form.FormDangNhap;
 import KhanhVySang.demo.Model.ThongTinCaNhan.KhachHangModel;
 import KhanhVySang.demo.Model.ThongTinCaNhan.TaiKhoanModel;
+import KhanhVySang.demo.Model.ThongTinMuaHang.GioHangModel;
 import KhanhVySang.demo.Model.ThongTinSanPham.DanhMucModel;
 import KhanhVySang.demo.Repositories.ThongTinCaNhan.KhachHangRepository;
 import KhanhVySang.demo.Repositories.ThongTinCaNhan.TaiKhoanRepository;
+import KhanhVySang.demo.Repositories.ThongTinMuaHang.GioHangRepository;
 import KhanhVySang.demo.Repositories.ThongTinSanPham.DanhMucRepository;
 
 @Controller
@@ -32,6 +34,8 @@ public class TrangChuController {
     private TaiKhoanRepository taiKhoanRepository;
     @Autowired
     private KhachHangRepository khachHangRepository;
+    @Autowired
+    private GioHangRepository gioHangRepository;
 
     @GetMapping(path = "/trangchu")
     public String viewTrangChu(Model model){
@@ -82,7 +86,6 @@ public class TrangChuController {
 
         String tenDangNhap = formDangKy.getTenDangNhap();
         String matKhau = formDangKy.getMatKhau();
-        // phaanf nay bi null chua sua
         String nhapLaiMatKhau = formDangKy.getNhapLaiMatKhau();
         String email = formDangKy.getEmail();
         String ho = formDangKy.getHo();
@@ -91,69 +94,46 @@ public class TrangChuController {
         String dienThoai = formDangKy.getDienThoai();
         Date ngaySinh = formDangKy.getNgaySinh();
 
-        System.out.println(tenDangNhap);
-        System.out.println(matKhau);
-        System.out.println(nhapLaiMatKhau);
-        System.out.println(email);
-        System.out.println(ho);
-        System.out.println(ten);
-        System.out.println(gioiTinh);
-        System.out.println(dienThoai);
-        System.out.println(ngaySinh);
-
-
         List<DanhMucModel> listDM = danhMucRepository.findAll();
         Optional<TaiKhoanModel> tkTDN = taiKhoanRepository.findByTenDangNhap(tenDangNhap);
         Optional<TaiKhoanModel> tkEmail = taiKhoanRepository.findByEmail(email);
         Optional<KhachHangModel> khSDT = khachHangRepository.findByDienThoai(dienThoai);
 
-
-
-        if(tkTDN.isEmpty()) {
-            model.addAttribute("message", "Tên đăng nhập này đã tồn tại");
+        if(!tkTDN.isEmpty()) {
+            System.out.println(tkTDN.get().getTenDangNhap());
+            model.addAttribute("message", "Tên đăng nhập này đã được sử dụng");
             return "register";
-        } else if(tkEmail.isEmpty()) {
-
-            System.out.println(tkTDN.get().getMaTaiKhoan());
+        } 
+        else if(!tkEmail.isEmpty()) {
+            System.out.println(tkTDN.get().getEmail());
             model.addAttribute("message", "Email này đã được sử dụng");
             return "register";
-        } else if(khSDT.isEmpty()) {
-            System.out.println(tkEmail.get().getMaTaiKhoan());
+        }
+        else if(!khSDT.isEmpty()) {
             model.addAttribute("message", "SĐT này đã được sử dụng");
             return "register";
+        } else if(!matKhau.equals(nhapLaiMatKhau)){
+            model.addAttribute("message", "Hai mật khẩu không khớp nhau");
+            return "register";
         } else {
-            if(matKhau.equals(nhapLaiMatKhau)) {
-                model.addAttribute("message", "Hai mật khẩu không khớp nhau");
-                return "register"; 
-            }
-            else {
-                
 
-                Date date = Date.valueOf(java.time.LocalDate.now());
-                TaiKhoanModel taiKhoan = new TaiKhoanModel(tenDangNhap, matKhau, email, date, 5);
-                KhachHangModel khachHang = new KhachHangModel(ho, ten, gioiTinh, dienThoai, ngaySinh, taiKhoan.getMaTaiKhoan());
+            Date date = Date.valueOf(java.time.LocalDate.now());
+            TaiKhoanModel taiKhoan = new TaiKhoanModel(tenDangNhap, matKhau, email, date, 5);
+            taiKhoanRepository.saveAndFlush(taiKhoan);
+            
+            Optional<TaiKhoanModel> addTK = taiKhoanRepository.findByTenDangNhap(tenDangNhap);
+            
 
-                System.out.println("TÀI KHOẢN");
-                System.out.println(taiKhoan.getMaTaiKhoan());
-                System.out.println(taiKhoan.getTenDangNhap());
-                System.out.println(taiKhoan.getEmail());
-                System.out.println(taiKhoan.getMatKhau());
-                System.out.println(taiKhoan.getNgayTao());
-                System.out.println(taiKhoan.getMaChucVu());
-                System.out.println("KHÁCH HÀNG");
-                System.out.println(khachHang.getMaTaiKhoan());
-                System.out.println(khachHang.getHo());
-                System.out.println(khachHang.getTen());
-                System.out.println(khachHang.getGioiTinh());
-                System.out.println(khachHang.getDienThoai());
-                System.out.println(khachHang.getNgaySinh());
-                System.out.println(khachHang.getMaKhachHang());
+            KhachHangModel khachHang = new KhachHangModel(ho, ten, gioiTinh, dienThoai, ngaySinh, addTK.get().getMaTaiKhoan());
+            khachHangRepository.saveAndFlush(khachHang);
 
+            Optional<KhachHangModel> addKH = khachHangRepository.findByMaTaiKhoan(addTK.get().getMaTaiKhoan());
 
-                model.addAttribute("danhMuc", listDM);
-                return "trangchu";
-            }
+            List<GioHangModel> gioHang = gioHangRepository.findByMaKhachHang(addKH.get().getMaKhachHang());
+
+            model.addAttribute("gioHang", gioHang);
+            model.addAttribute("danhMuc", listDM);
+            return "redirect:/view/login";
         }
     }
-
 }

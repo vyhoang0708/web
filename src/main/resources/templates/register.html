@@ -34,7 +34,9 @@
         <div class="imgcontainer">
             <img src="http://127.0.0.1:5500/target/classes/static/Image/img-register.png" alt="Avatar" class="avatar">
         </div>
-    
+        <div>
+            <p style="color: red;" class="align-items-center" th:text="${message}"></p>
+        </div>
         <div class="container">
             <div>
                 <!-- <label for="taikhoan"><b>Tài Khoản</b></label> -->
@@ -51,7 +53,7 @@
             <div>
                 <!-- <label for="nl-matkhau"><b>Nhập Lại Mật Khẩu</b></label> -->
                 <i class="fa fa-key icon"></i>
-                <input type="password" placeholder="Nhập Lại Mật Khẩu" name="nlMatKhau" id="nlMatKhau" required>
+                <input type="password" placeholder="Nhập Lại Mật Khẩu" name="nhapLaiMatKhau" id="nhapLaiMatKhau" required>
             </div>
 
             <div>
@@ -92,7 +94,7 @@
             <div>
                 <!-- <label for="ngaysinh"><b>Ngày Sinh</b></label> -->
                 <i class="far fa-calendar-alt"></i>
-                <input type="date" placeholder="Nhập Ngày Sinh" name="ngaySinh" id="ngaySinh" required>
+                <input type="date" placeholder="Nhập Ngày Sinh" name="ngaySinh" id="ngaySinh" value="2001-08-24" required>
             </div>
     
             <hr>

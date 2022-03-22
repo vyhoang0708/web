@@ -9714,3 +9714,54 @@ span.psw {
      width: 100%;
   }
 }
+
+
+/* ============= dropdown w3shool ================ */
+
+.dropbtn {
+  /* background-color: #4CAF50; */
+  color: white;
+  /* padding: 16px;
+  font-size: 16px; */
+  border: none;
+  cursor: pointer;
+}
+
+.dropdowndd {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdowndd-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.dropdowndd-content a {
+  color: black;
+  /* padding: 12px 16px; */
+  text-decoration: none;
+  /* text-decoration: underline; */
+  display: block;
+}
+
+/* .dropdowndd-content a:hover {background-color: #f1f1f1} */
+.dropdowndd-content a:hover {background-color: #D19C97}
+
+
+.dropdowndd:hover .dropdowndd-content {
+  display: block;
+}
+
+.dropdowndd:hover 
+.dropbtn {
+  /* background-color: #D19C97; */
+  color: #D19C97;
+  background-color:rgba(0, 0, 0, 0);
+}
+
+/* ============= dropdow w3shool ================ */

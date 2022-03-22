@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class TaiKhoanModel {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maTaiKhoan;
     @Column(name = "tenDangNhap", unique = true, nullable = false, length = 20)
     private String tenDangNhap;

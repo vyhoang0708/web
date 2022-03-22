@@ -84,17 +84,38 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
+                <!-- <a href="" class="btn border">
                     <i class="fas fa-heart" ></i>
                     <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
-                    <i class="fas fa-user-alt"></i>
-                </a>
-                <a href="" class="btn border ">
-                    <i class="fas fa-shopping-cart"></i>
+                </a> -->
+                <div class="dropdowndd btn border" style="background-color: white; float: right;">
+                    <a class="dropbtn fas fa-user-alt" style="color: #D19C97;"></a>
+                    <div class="dropdowndd-content">
+                        <a class="button" href="#">Tài Khoản</a>
+                        <a href="#">Đơn Hàng</a>
+                        <input style="height: 20px;" type="text" placeholder="Nhập Mã Đơn Hàng">
+                        <hr>
+                        <a href="#">Đăng Xuất</a>
+                    </div>
+                </div>
+
+                <div class="dropdowndd btn border" style="background-color: white; float: right;">
+                    <a class="dropbtn fas fa-shopping-cart" style="color: #D19C97;"></a>
+                    <div class="dropdowndd-content auto">
+                        <a class="button" href="#">Link 1</a>
+                        <a href="#"> 2</a>
+                        <input type="text" placeholder="Nhập Mã Đơn Hàng">
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+                <!-- <a href="" class="btn border" style="background-color: white;">
+                    <i class="fas fa-user-alt" style="color: #D19C97;"></i>
+                    
+                </a> -->
+                <!-- <a href="" class="btn border" style="background-color: white;">
+                    <i class="fas fa-shopping-cart" style="color: #D19C97;"></i>
                     <span class="badge">0</span>
-                </a>
+                </a> -->
 
             </div>
         </div>
@@ -114,12 +135,13 @@
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
                     id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <!-- 410 -->
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: auto">
                         <div class="nav-item dropdown">
                         </div>
 
                         <div th:each="dm : ${danhMuc}">
-                            <a href="" class="nav-item nav-link" th:text="${dm.tenDanhMuc}"></a>
+                            <a href="" class="nav-item nav-link button" th:text="${dm.tenDanhMuc}"></a>
                         </div>
                         <!-- <a href="" class="nav-item nav-link">Swimwear</a>
                         <a href="" class="nav-item nav-link">Sleepwear</a>
@@ -149,16 +171,21 @@
                             <a th:href="@{/ttcn/chitietcuahang}" class="nav-item nav-link">Chi Tiết Cửa Hàng</a>
                             <a th:href="@{/ttcn/lienhe}" class="nav-item nav-link">Liên Hệ</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Đăng Nhập</button> -->
-                            <a th:href="@{/view/login}" class="nav-item nav-link active">Đăng Nhập</a>
-                            <a th:href="@{/view/register}" class="nav-item nav-link active">Đăng Ký</a>
 
-                            <!-- <button th:href="@{/view/login}" style="width:auto;">Đăng Nhập</button>
-                            <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Đăng Ký</button> -->
-                            <!-- <a onclick="document.getElementById('id01').style.display='block'" href="" class="nav-item nav-link">Đăng Nhập</a>
-                            <a href="" class="nav-item nav-link">Đăng Ký</a> -->
+                        <div class="navbar-nav ml-auto py-0">
+                            <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
+                            <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
+                            
                         </div>
+
+                        <!-- <div class="col-lg-3 col-6 text-right">
+                            <a th:href="@{/view/login}" class="btn border" style="background-color: #D19C97;">
+                                <i style="color: white;">Đăng Nhập</i>
+                            </a>       
+                            <a th:href="@{/view/register}" class="btn border" style="background-color: #D19C97;">
+                                <i style="color: wh;">Đăng Ky</i>
+                            </a>
+                        </div> -->
                     </div>
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -209,25 +236,25 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                     <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                    <h5 class="font-weight-semi-bold m-0">Sản Phẩm Chất Lượng</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                     <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                    <h5 class="font-weight-semi-bold m-0">Miễn Phí Ship</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                     <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                    <h5 class="font-weight-semi-bold m-0">7-Ngày Đổi Trả</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                     <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                    <h5 class="font-weight-semi-bold m-0">Hỗ Trợ 24/7</h5>
                 </div>
             </div>
         </div>

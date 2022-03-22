@@ -14,18 +14,18 @@ import javax.persistence.Table;
 public class GioHangModel implements Serializable{
     
     @Id
-    private long maSanPham;
+    private int maSanPham;
     @Id
-    private String maNhanVien;
+    private int maKhachHang;
     @Column(name = "soLuong", nullable = false)
     private int soLuong;
 
 
     public GioHangModel() {}
 
-    public GioHangModel(long maSanPham, String maNhanVien, int soLuong) {
+    public GioHangModel(int maSanPham, int maKhachHang, int soLuong) {
         this.maSanPham = maSanPham;
-        this.maNhanVien = maNhanVien;
+        this.maKhachHang = maKhachHang;
         this.soLuong = soLuong;
     }
 
@@ -33,16 +33,16 @@ public class GioHangModel implements Serializable{
         return this.maSanPham;
     }
 
-    public void setMaSanPham(long maSanPham) {
+    public void setMaSanPham(int maSanPham) {
         this.maSanPham = maSanPham;
     }
 
-    public String getMaNhanVien() {
-        return this.maNhanVien;
+    public int getMaNhanVien() {
+        return this.maKhachHang;
     }
 
-    public void setMaNhanVien(String maNhanVien) {
-        this.maNhanVien = maNhanVien;
+    public void setMaNhanVien(int maKhachHang) {
+        this.maKhachHang = maKhachHang;
     }
 
     public int getSoLuong() {

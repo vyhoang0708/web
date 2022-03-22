@@ -17,6 +17,6 @@ public interface KhachHangRepository extends JpaRepository<KhachHangModel, Strin
     Optional<KhachHangModel> findByGioiTinh(String gioiTinh);
     Optional<KhachHangModel> findByDienThoai(String dienThoai);
     Optional<KhachHangModel> findByNgaySinh(Date ngaySinh);
-    KhachHangModel findByMaTaiKhoan(int maTaiKhoan);
+    Optional<KhachHangModel> findByMaTaiKhoan(int maTaiKhoan);
 
 }
