@@ -29,7 +29,7 @@
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row bg-secondary py-2 px-xl-5">
+        <div class="row bg-primary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark" href="">FAQs</a>
@@ -61,7 +61,7 @@
         </div>
         <div class="row align-items-center py-3 px-xl-5"  th:style="'background:url('+@{/Image/backgroundTet.jpeg}+');'">
             <div class="col-lg-3 d-none d-lg-block">
-                <a th:href="@{/ttcn/trangchu}" class="text-decoration-none">
+                <a th:href="@{/view/trangchu}" class="text-decoration-none">
                     <!-- <h1 class="m-0 display-5 font-weight-semi-bold"><span
                             class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1> -->
                     <img th:src="@{/Image/logoDoAn.png}" alt="Logo Cua Hang">
@@ -81,14 +81,36 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
+                <div class="dropdowndd btn border" style="background-color: white;">
+                    <a class="dropbtn fas fa-user-alt" style="color: #D19C97;"></a>
+                    <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
+                        <span th:text="${session.khachHang.ho}"></span>
+                        <span th:text="${session.khachHang.ten}"></span>
+                        <a th:href="@{/view/trangchu}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Xuất</a>
+                    </div>
+                    <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
+                    </div>
+                </div>
+
+                <div class="dropdowndd btn border" style="background-color: white;">
+                    <a class="dropbtn fas fa-shopping-cart" style="color: #D19C97;"></a>
+                    <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
+                        <div th:if="${#arrays.isEmpty(session.gioHang)}">
+                            <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                        </div>
+                        <div tth:unless="${#arrays.isEmpty(session.gioHang)}">
+                            <div th:each="gh : ${session.gioHang}">
+                                <a th:text="${gh.maSanPham}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,12 +126,12 @@
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: auto">
                         <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
                         </div> -->
-                        <div th:each="taikhoan : ${taiKhoan}">
-                            <a href="" class="nav-item nav-link" th:text="${taikhoan.tenDangNhap}"></a>
+                        <div th:each="dm : ${session.danhMuc}">
+                            <a href="" class="nav-item nav-link" th:text="${dm.tenDanhMuc}"></a>
                         </div>
                     </div>
                 </nav>
@@ -123,15 +145,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        
                         <div class="navbar-nav mr-auto py-0">
-                            <a th:href="@{/ttcn/trangchu}" class="nav-item nav-link">Trang Chủ</a>
-                            <a th:href="@{/ttcn/cuahang}" class="nav-item nav-link active">Cửa Hàng</a>
-                            <a th:href="@{/ttcn/chitietcuahang}" class="nav-item nav-link">Chi Tiết Cửa Hàng</a>
-                            <a th:href="@{/ttcn/lienhe}" class="nav-item nav-link">Liên Hệ</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
+                            <a th:href="@{/view/trangchu}" class="nav-item nav-link">Trang Chủ</a>
+                            <a th:href="@{/view/cuahang}" class="nav-item nav-link active">Cửa Hàng</a>
+                            <a th:href="@{/view/chitietcuahang}" class="nav-item nav-link">Chi Tiết Cửa Hàng</a>
+                            <a th:href="@{/view/lienhe}" class="nav-item nav-link">Liên Hệ</a>
                         </div>
                     </div>
                 </nav>
@@ -142,14 +161,14 @@
 
 
     <!-- Page Header Start -->
-    <div class="container-fluid bg-secondary mb-5">
+    <div class="row align-items-center py-3 px-xl-5"  th:style="'background:url('+@{/Image/img-background-cuahang.png}+');'">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+            <!-- <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="@{/view/trangchu}">Home</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Shop</p>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Page Header End -->
@@ -160,119 +179,50 @@
         <div class="row px-xl-5">
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-12">
-                <!-- Price Start -->
+                <h3 class="font-weight-semi-bold mb-4">Lọc Theo</h3>
+                <!-- Danh Mục Start -->
                 <div class="border-bottom mb-4 pb-4">
-                    <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+                    <h5 class="font-weight-semi-bold mb-4">Danh Mục</h5>
                     <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">$0 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
+                        <div th:each="dm : ${session.danhMuc}">
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" th:id=*{dm.tenDanhMuc}>
+                                <label class="custom-control-label" th:for=*{dm.tenDanhMuc} th:text="*{dm.tenDanhMuc}"></label>
+                            </div>
                         </div>
                     </form>
                 </div>
-                <!-- Price End -->
+                <!-- Danh Mục End -->
                 
-                <!-- Color Start -->
-                <div class="border-bottom mb-4 pb-4">
-                    <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
+                <!-- Loại Danh Mục Start -->
+                <!-- <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Lọc Loại Sản Phẩm</h5>
                     <form>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="color-all">
-                            <label class="custom-control-label" for="price-all">All Color</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                            <input type="checkbox" class="custom-control-input" checked id="loaisanpham-all">
+                            <label class="custom-control-label" for="loaisanpham-all">Tất Cả Loại Sản Phẩm</label>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-1">
-                            <label class="custom-control-label" for="color-1">Black</label>
-                            <span class="badge border font-weight-normal">150</span>
+                        <div th:each="dm : ${session.danhMuc}">
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" id="dm.tenDanhMuc">
+                                <label class="custom-control-label" for="price-1" th:text="${dm.tenDanhMuc}"></label>
+                            </div>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-2">
-                            <label class="custom-control-label" for="color-2">White</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-3">
-                            <label class="custom-control-label" for="color-3">Red</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-4">
-                            <label class="custom-control-label" for="color-4">Blue</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="color-5">
-                            <label class="custom-control-label" for="color-5">Green</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
+                        
                     </form>
-                </div>
+                </div> -->
                 <!-- Color End -->
 
-                <!-- Size Start -->
-                <div class="mb-5">
-                    <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
+                <!-- Giá Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Giá</h5>
                     <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="size-all">
-                            <label class="custom-control-label" for="size-all">All Size</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                        <div>
+                            <input type="range" id="rangeInput" name="rangeInput" min="1000" max="5000000" value="5000000" style="width: 270px;" oninput="amount.value=rangeInput.value">                                                       
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-1">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-2">
-                            <label class="custom-control-label" for="size-2">S</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-3">
-                            <label class="custom-control-label" for="size-3">M</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-4">
-                            <label class="custom-control-label" for="size-4">L</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="size-5">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
+                        <label style="float: left;">1000</label><output style="float: right;" id="amount" name="amount" for="rangeInput">5000000</output>
                     </form>
                 </div>
-                <!-- Size End -->
             </div>
             <!-- Shop Sidebar End -->
 
@@ -284,7 +234,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <form action="">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search by name">
+                                    <input type="text" class="form-control" placeholder="Tìm Theo Tên">
                                     <div class="input-group-append">
                                         <span class="input-group-text bg-transparent text-primary">
                                             <i class="fa fa-search"></i>
@@ -295,12 +245,11 @@
                             <div class="dropdown ml-4">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                            Sort by
+                                            Sắp Xếp
                                         </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Popularity</a>
-                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                    <a class="dropdown-item" href="#">Giá Thấp</a>
+                                    <a class="dropdown-item" href="#">Giá Cao</a>
                                 </div>
                             </div>
                         </div>
@@ -308,7 +257,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-1.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -325,7 +274,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-2.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -342,7 +291,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-3.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -359,7 +308,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-4.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -376,7 +325,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-5.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -393,7 +342,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-6.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-6.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -410,7 +359,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-7.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-7.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -427,7 +376,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-8.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -444,7 +393,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+                                <img class="img-fluid w-100" src="http://127.0.0.1:5500/target/classes/static/Image/product-1.jpg" alt="Image">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
