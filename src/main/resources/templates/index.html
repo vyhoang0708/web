@@ -88,40 +88,40 @@
                     <i class="fas fa-heart" ></i>
                     <span class="badge">0</span>
                 </a> -->
-                <div class="dropdowndd btn border" style="background-color: white; float: right;">
+                <div class="dropdowndd btn border" style="background-color: white;">
                     <a class="dropbtn fas fa-user-alt" style="color: #D19C97;"></a>
-                    <div class="dropdowndd-content">
-                        <a class="button" href="#">Tài Khoản</a>
-                        <a href="#">Đơn Hàng</a>
-                        <input style="height: 20px;" type="text" placeholder="Nhập Mã Đơn Hàng">
-                        <hr>
-                        <a href="#">Đăng Xuất</a>
+                    <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
+                        <span th:text="${session.khachHang.ho}"></span>
+                        <span th:text="${session.khachHang.ten}"></span>
+                        <a th:href="@{/view/trangchu}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Xuất</a>
+                    </div>
+                    <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
                     </div>
                 </div>
 
-                <div class="dropdowndd btn border" style="background-color: white; float: right;">
+                <div class="dropdowndd btn border" style="background-color: white;">
                     <a class="dropbtn fas fa-shopping-cart" style="color: #D19C97;"></a>
-                    <div class="dropdowndd-content auto">
-                        <a class="button" href="#">Link 1</a>
-                        <a href="#"> 2</a>
-                        <input type="text" placeholder="Nhập Mã Đơn Hàng">
-                        <a href="#">Link 3</a>
+                    <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
+                        <div th:if="${#arrays.isEmpty(session.gioHang)}">
+                            <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                        </div>
+                        <div tth:unless="${#arrays.isEmpty(session.gioHang)}">
+                            <div th:each="gh : ${session.gioHang}">
+                                <a th:text="${gh.maSanPham}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
                     </div>
                 </div>
-                <!-- <a href="" class="btn border" style="background-color: white;">
-                    <i class="fas fa-user-alt" style="color: #D19C97;"></i>
-                    
-                </a> -->
-                <!-- <a href="" class="btn border" style="background-color: white;">
-                    <i class="fas fa-shopping-cart" style="color: #D19C97;"></i>
-                    <span class="badge">0</span>
-                </a> -->
-
             </div>
         </div>
     </div>
     <!-- Topbar End -->
-
 
     <!-- Navbar Start -->
     <div class="container-fluid mb-5">
@@ -140,16 +140,10 @@
                         <div class="nav-item dropdown">
                         </div>
 
-                        <div th:each="dm : ${danhMuc}">
+                        <div th:each="dm : ${session.danhMuc}">
                             <a href="" class="nav-item nav-link button" th:text="${dm.tenDanhMuc}"></a>
                         </div>
-                        <!-- <a href="" class="nav-item nav-link">Swimwear</a>
-                        <a href="" class="nav-item nav-link">Sleepwear</a>
-                        <a href="" class="nav-item nav-link">Sportswear</a>
-                        <a href="" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="" class="nav-item nav-link">Blazers</a>
-                        <a href="" class="nav-item nav-link">Jackets</a>
-                        <a href="" class="nav-item nav-link">Shoes</a> -->
+
                     </div>
                 </nav>
             </div>
@@ -165,27 +159,13 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
                         <div class="navbar-nav mr-auto py-0">
-                            <a th:href="@{/ttcn/trangchu}" class="nav-item nav-link active">Trang Chủ</a>
-                            <a th:href="@{/ttcn/cuahang}" class="nav-item nav-link">Cửa Hàng</a>
-                            <a th:href="@{/ttcn/chitietcuahang}" class="nav-item nav-link">Chi Tiết Cửa Hàng</a>
-                            <a th:href="@{/ttcn/lienhe}" class="nav-item nav-link">Liên Hệ</a>
+                            <a th:href="@{/view/trangchu}" class="nav-item nav-link active">Trang Chủ</a>
+                            <a th:href="@{/view/cuahang}" class="nav-item nav-link">Cửa Hàng</a>
+                            <a th:href="@{/view/chitietcuahang}" class="nav-item nav-link">Chi Tiết Cửa Hàng</a>
+                            <a th:href="@{/view/lienhe}" class="nav-item nav-link">Liên Hệ</a>
                         </div>
-
-                        <div class="navbar-nav ml-auto py-0">
-                            <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
-                            <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
-                            
-                        </div>
-
-                        <!-- <div class="col-lg-3 col-6 text-right">
-                            <a th:href="@{/view/login}" class="btn border" style="background-color: #D19C97;">
-                                <i style="color: white;">Đăng Nhập</i>
-                            </a>       
-                            <a th:href="@{/view/register}" class="btn border" style="background-color: #D19C97;">
-                                <i style="color: wh;">Đăng Ky</i>
-                            </a>
-                        </div> -->
                     </div>
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -248,7 +228,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                     <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">7-Ngày Đổi Trả</h5>
+                    <h5 class="font-weight-semi-bold m-0">7-Ngày Trả</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
