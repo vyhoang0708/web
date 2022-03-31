@@ -82,20 +82,20 @@
             </div>
             <div class="col-lg-3 col-6 text-right">
                 <div class="dropdowndd btn border" style="background-color: white;">
-                    <a class="dropbtn fas fa-user-alt" style="color: #D19C97;"></a>
+                    <a class="dropbtn fas fa-user-alt" style="color: #090909;"></a>
                     <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
                         <span th:text="${session.khachHang.ho}"></span>
                         <span th:text="${session.khachHang.ten}"></span>
-                        <a th:href="@{/view/trangchu}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Xuất</a>
+                        <a th:href="@{/view/trangchu}" class="nav-item nav-link active btn border animate bg-primary" style=" color: black;">Đăng Xuất</a>
                     </div>
                     <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
-                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
-                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate bg-primary" style=" color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate bg-primary" style=" color: black;">Đăng Ký</a>
                     </div>
                 </div>
 
                 <div class="dropdowndd btn border" style="background-color: white;">
-                    <a class="dropbtn fas fa-shopping-cart" style="color: #D19C97;"></a>
+                    <a class="dropbtn fas fa-shopping-cart" style="color: #090909;"></a>
                     <div class="dropdowndd-content" th:if="${session.dangDangNhap}">
                         <div th:if="${#arrays.isEmpty(session.gioHang)}">
                             <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
@@ -107,8 +107,8 @@
                         </div>
                     </div>
                     <div class="dropdowndd-content" th:unless="${session.dangDangNhap}">
-                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Nhập</a>
-                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate" style="background-color: #D19C97; color: black;">Đăng Ký</a>
+                        <a th:href="@{/view/login}" class="nav-item nav-link active btn border animate bg-primary" style=" color: black;">Đăng Nhập</a>
+                        <a th:href="@{/view/register}" class="nav-item nav-link active btn border animate bg-primary" style=" color: black;">Đăng Ký</a>
                     </div>
                 </div>
             </div>
@@ -163,14 +163,16 @@
     <!-- Page Header Start -->
     <div class="row align-items-center py-3 px-xl-5"  th:style="'background:url('+@{/Image/img-background-cuahang.png}+');'">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <!-- <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+             <!-- <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
             <div class="d-inline-flex">
                 <p class="m-0"><a href="@{/view/trangchu}">Home</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Shop</p>
-            </div> -->
+            </div>  -->
         </div>
     </div>
+    
+   
     <!-- Page Header End -->
 
 
